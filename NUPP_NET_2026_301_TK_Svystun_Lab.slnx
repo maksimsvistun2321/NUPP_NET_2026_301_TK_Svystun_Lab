@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="OnlineLibrary.Common/OnlineLibrary.Common.csproj" />
+  <Project Path="OnlineLibrary.Console/OnlineLibrary.Console.csproj" />
+</Solution>
