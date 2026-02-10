@@ -20,7 +20,7 @@ public static class ExtensionClass
         }
 		else 
 		{
-            Console.WriteLine("I don't now what you read.");
+            Console.WriteLine("Invalid type");
         }
 	}
 }

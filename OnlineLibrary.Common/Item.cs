@@ -3,7 +3,7 @@
 namespace OnlineLibrary.Common
 {
     //делегат
-    public delegate void StatusHandler(string message);
+    public delegate void ItemStatusHandler(string itemStatus);
 
     public class Item : IEntity
     {
@@ -49,7 +49,7 @@ namespace OnlineLibrary.Common
         }
 
         //подія
-        public event StatusHandler OnStatusChanged;
+        public event ItemStatusHandler OnItemStatusChanged;
 
         //метод для додавання оцінок
         public void AddRating(int rating)
@@ -68,13 +68,13 @@ namespace OnlineLibrary.Common
         }
         
         //метод для зміни статусу
-        public void ChangeStatus(string newStatus)
+        public void ChangeItemStatus(string newStatus)
         {
             CurrentStatus = newStatus;
 
-            if (OnStatusChanged != null)
+            if (OnItemStatusChanged != null)
             {
-                OnStatusChanged($"\n'{Title}' status changed. New status: {newStatus}");
+                OnItemStatusChanged($"\n'{Title}' status changed. New status: {newStatus}");
             }
         }
 

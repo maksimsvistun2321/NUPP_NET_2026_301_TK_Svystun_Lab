@@ -5,9 +5,10 @@ using OnlineLibrary.Common;
 var bookService = new CrudService<Book>();
 var magazineService = new CrudService<Magazine>();
 var articleService = new CrudService<Article>();
+var readerService = new CrudService<Reader>();
 
 //стоврення об'єкта book
-var book1 = new Book
+Book book1 = new Book
 {
     Title = "Test Book",
     Author = "Test Author",
@@ -19,8 +20,8 @@ var book1 = new Book
 Console.WriteLine("Testsing book class:");
 
 //подія з базового класу
-book1.OnStatusChanged += (msg) => {
-    Console.WriteLine($"\n{msg}");
+book1.OnItemStatusChanged += (status) => {
+    Console.WriteLine($"\n{status}");
 };
 
 //подія з класу Book
@@ -29,7 +30,7 @@ book1.OnProgressChanged += (pages, percent) => {
 };
 
 //зміна статусу
-book1.ChangeStatus("Reading");
+book1.ChangeItemStatus("Reading");
 
 //додавання оцінко
 book1.AddRating(5);
@@ -73,7 +74,7 @@ Console.WriteLine($"\nNumber of created books: {Book.GetTotalBooks()}");
 Console.WriteLine("\n_________________________________________________");
 Console.WriteLine("Testing magazine class");
 
-var magazine1 = new Magazine
+Magazine magazine1 = new Magazine
 {
     Title = "Test magazine",
     IssueNumber = 12,
@@ -81,8 +82,8 @@ var magazine1 = new Magazine
 };
 
 //подія з базового класу
-magazine1.OnStatusChanged += (msg) => {
-    Console.WriteLine($"\n{msg}");
+magazine1.OnItemStatusChanged += (status) => {
+    Console.WriteLine($"\n{status}");
 };
 
 //подія з класу Magazine
@@ -91,7 +92,7 @@ magazine1.OnPeriodicityChanged += (info) => {
 };
 
 //зміна статусу
-magazine1.ChangeStatus("In Print");
+magazine1.ChangeItemStatus("In Print");
 
 //використання методу для зміни періодичності. Перший викличе помилку, другий повинене бути успішний
 magazine1.UpdatePeriodicity("Daily", (val) => {
@@ -136,7 +137,7 @@ Console.WriteLine($"\nNumber of created magazines: {Magazine.GetTotalMagazines()
 Console.WriteLine("\n_________________________________________________");
 Console.WriteLine("Testing article class");
 
-var article1 = new Article 
+Article article1 = new Article 
 {
     Title = "Test article",
     Author = "Test Article Author",
@@ -144,8 +145,8 @@ var article1 = new Article
 };
 
 //подія з базового класу
-article1.OnStatusChanged += (msg) => {
-    Console.WriteLine($"\n{msg}");
+article1.OnItemStatusChanged += (status) => {
+    Console.WriteLine($"\n{status}");
 };
 
 //подія 
@@ -154,7 +155,7 @@ article1.OnPublished += (date) => {
 };
 
 //зміна статусу
-article1.ChangeStatus("Latest version");
+article1.ChangeItemStatus("Latest version");
 
 //використання методу для оформлення цитат
 Console.WriteLine($"\n{article1.GetQuotes}");
@@ -186,9 +187,9 @@ articleService.Update(article1);
 string filePathArticle = "articles_data.json";
 articleService.Save(filePathArticle);
 
-foreach (var art in articleService.ReadAll())
+foreach (var a in articleService.ReadAll())
 {
-    Console.WriteLine(art.ToString());
+    Console.WriteLine(a.ToString());
 }
 
 //виклик статичного методу
@@ -197,3 +198,55 @@ Console.WriteLine($"\nNumber of created articles: {Article.GetTotalArticles()}")
 ////////////
 //виклик статичного методу
 Console.WriteLine($"\nNumber of created items: {Item.GetTotalItems()}");
+
+
+////////////////////////////
+Console.WriteLine("_______________________________________________________");
+Console.WriteLine("Testing Reader");
+Reader reader1 = new Reader
+{
+    Name = "Reader1",
+    Age = 20
+};
+
+//подія
+reader1.OnReaderStatusChanged += (status) => {
+    Console.WriteLine($"\n{status}");
+};
+
+//зміна статусу
+reader1.ChangeReaderStatus("Online");
+
+//використання методу для додавання до списку улюбленого
+reader1.AddToFavorite(article1);
+reader1.AddToFavorite(book1);
+
+//використання методу для виводу всіх улюблених 
+reader1.PrintAllFavoriteItems();
+
+//використання методу для видалення з улюблених
+reader1.RemoveFromFavorite(book1);
+
+reader1.PrintAllFavoriteItems();
+
+Console.WriteLine($"\nAll created readers: {Reader.GetTotalReaders()}");
+
+//Create
+readerService.Create(reader1);
+
+//Read
+var foundReader = readerService.Read(reader1.Id);
+Console.WriteLine($"\nFound: {foundReader.Name}");
+
+//Update
+reader1.Name = "Bob";
+readerService.Update(reader1);
+
+//Save
+string filePathReader = "readers_data.json";
+readerService.Save(filePathReader);
+
+foreach (var r in readerService.ReadAll())
+{
+    Console.WriteLine(r.ToString());
+}
