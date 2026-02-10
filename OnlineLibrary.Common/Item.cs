@@ -19,7 +19,7 @@ namespace OnlineLibrary.Common
         public static int TotalItems;
 
         //список для зберігання оцінок
-        private List<int> ratings = new List<int>();
+        private List<int> _ratings = new List<int>();
 
         //статичний конструктор
         static Item()
@@ -56,15 +56,15 @@ namespace OnlineLibrary.Common
         {
             if (rating >= 1 && rating <= 5)
             {
-                ratings.Add(rating);
+                _ratings.Add(rating);
             }
         }
 
         //метод для обрахунку рейтингу
         public double CalculateRating()
         {
-            if (ratings.Count == 0) return 0;
-            return ratings.Average();
+            if (_ratings.Count == 0) return 0;
+            return _ratings.Average();
         }
         
         //метод для зміни статусу

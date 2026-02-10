@@ -43,6 +43,9 @@ book1.UpdateProgress(250);
 //подовження терміну оренди
 book1.ExtendLease(7);
 
+//виклик методу розширення
+book1.WhatAmIReading();
+
 //Create
 bookService.Create(book1);
 
@@ -58,13 +61,13 @@ bookService.Update(book1);
 string filePathBook = "books_data.json";
 bookService.Save(filePathBook);
 
-//Load
-bookService.Load(filePathBook);
-
 foreach (var b in bookService.ReadAll())
 {
     Console.WriteLine(b.ToString());
 }
+
+//виклик статичного методу
+Console.WriteLine($"\nNumber of created books: {Book.GetTotalBooks()}");
 
 ///////////////////////////////////////////////////////////////////////////////////
 Console.WriteLine("\n_________________________________________________");
@@ -102,6 +105,9 @@ magazine1.AddRating(4);
 magazine1.AddRating(5);
 magazine1.AddRating(4);
 
+//виклик методу розширення
+magazine1.WhatAmIReading();
+
 //Create
 magazineService.Create(magazine1);
 
@@ -117,13 +123,13 @@ magazineService.Update(magazine1);
 string filePathMagazine = "magazines_data.json";
 magazineService.Save(filePathMagazine);
 
-//Load
-magazineService.Load(filePathMagazine);
-
 foreach (var m in magazineService.ReadAll())
 {
     Console.WriteLine(m.ToString());
 }
+
+//виклик статичного методу
+Console.WriteLine($"\nNumber of created magazines: {Magazine.GetTotalMagazines()}");
 
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -161,6 +167,9 @@ article1.AddRating(4);
 article1.AddRating(3);
 article1.AddRating(4);
 
+//виклик методу розширення
+article1.WhatAmIReading();
+
 // Create
 articleService.Create(article1);
 
@@ -177,10 +186,14 @@ articleService.Update(article1);
 string filePathArticle = "articles_data.json";
 articleService.Save(filePathArticle);
 
-//Load
-articleService.Load(filePathArticle);
-
 foreach (var art in articleService.ReadAll())
 {
     Console.WriteLine(art.ToString());
 }
+
+//виклик статичного методу
+Console.WriteLine($"\nNumber of created articles: {Article.GetTotalArticles()}");
+
+////////////
+//виклик статичного методу
+Console.WriteLine($"\nNumber of created items: {Item.GetTotalItems()}");

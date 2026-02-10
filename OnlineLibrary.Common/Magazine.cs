@@ -56,10 +56,17 @@ namespace OnlineLibrary.Common
                 Console.WriteLine($"\nChanged error!!!");
             }
         }
+
         //перевантаження метода ToString
         public override string ToString()
         {
             return $"\nMagazine: {Title}, Periodicity: {Periodicity}";
+        }
+
+        //статичний метод
+        public static int GetTotalMagazines()
+        {
+            return TotalMagazines;
         }
     }
 }

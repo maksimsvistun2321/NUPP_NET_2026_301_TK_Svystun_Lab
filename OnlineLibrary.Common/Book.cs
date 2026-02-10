@@ -71,5 +71,11 @@ namespace OnlineLibrary.Common
         {
             return $"\nBook: {Title}, Author={Author}, Pages={Pages}, ISBN={Isbn}, Genre={Genre}, id={Id}";
         }
+
+        //статичний метод
+        public static int GetTotalBooks()
+        {
+            return TotalBooks;
+        }
     }
 }

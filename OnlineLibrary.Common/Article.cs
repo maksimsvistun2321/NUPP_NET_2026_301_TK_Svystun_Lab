@@ -61,10 +61,17 @@ namespace OnlineLibrary.Common
             Console.WriteLine($"\nArticle '{Title}' published.");
             OnPublished?.Invoke(publishDate);
         }
+
         //перевантаження методу ToString
         public override string ToString()
         {
             return $"\nArticle: {Title}, MAgazine: {MagazineName}, Author: {Author}";
+        }
+
+        //статичний метод
+        public static int GetTotalArticles()
+        {
+            return TotalArticles;
         }
     }
 }
